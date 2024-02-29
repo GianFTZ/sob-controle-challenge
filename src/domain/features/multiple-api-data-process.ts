@@ -20,7 +20,7 @@ type SetupMultipleApiDataProcess = (props: SetupMultipleApiDataProcessProps) => 
 export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1Provider, api2Provider, localCalc, api3Provider }: SetupMultipleApiDataProcessProps) => async input => {
   try {
     const { id, name } = await api1Provider({ name: input.name })
-    errorHandler({ code: id, cause: name, from: "Api1Provider"})
+    await errorHandler({ code: id, cause: name, from: "Api1Provider"})
     const { dataNascimento } = await api2Provider({ id })
     const success = await localCalc({ name, dataNascimento, id })
     await api3Provider({ id, isBirthDay: success })
