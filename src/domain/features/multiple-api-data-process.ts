@@ -36,7 +36,7 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
       alertaObservabilidadeProvider({ id: Errors.Internal })
       return "InternalError"
     } else if(e instanceof TimeoutError) {
-      return e
+      return "TimedOut"
     } else {
       return "Unknown error"
     }
