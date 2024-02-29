@@ -1,4 +1,4 @@
-type Api2ProviderResponse = {
+export type Api2ProviderResponse = {
   dataNascimento: string;
 }
 

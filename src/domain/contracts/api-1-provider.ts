@@ -1,4 +1,4 @@
-type Api1Response = {
+export type Api1Response = {
   id: string;
   name: string;
 };
