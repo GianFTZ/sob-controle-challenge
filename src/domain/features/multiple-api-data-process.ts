@@ -7,7 +7,8 @@ type Output = {}
 export type MultipleApiDataProcess = (input: Input) => Promise<Output>
 type SetupMultipleApiDataProcessProps = {
   api1Provider: Api1Provider,
-  api2Provider: Api2Provider
+  api2Provider: Api2Provider,
+  // localCalc: LocalCalcProvider
 }
 type SetupMultipleApiDataProcess = (props: SetupMultipleApiDataProcessProps) => MultipleApiDataProcess
 

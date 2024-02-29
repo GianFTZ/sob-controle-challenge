@@ -3,14 +3,14 @@ import { setupMultipleApiDataProcess, type MultipleApiDataProcess } from '../../
 import { apiFake1 } from '../../mocks/fake-api-1'
 import { apiFake2 } from '../../mocks/fake-api-2'
 import { describe, test, expect, vi, type Mock } from 'vitest'
-import type { Api1Provider, Api1Response, Api2Provider, Api2ProviderResponse } from '../../../domain/contracts'
+import type { Api1ProviderResponse, Api2ProviderResponse } from '../../../domain/contracts'
 
 type MakeSutResponse = {
   sut: MultipleApiDataProcess
   providers: {
     api1Provider: Mock<[props: {
       name: string;
-    }], Promise<Api1Response>>;
+    }], Promise<Api1ProviderResponse>>;
     api2Provider: Mock<[props: {
       id: string;
     }], Promise<Api2ProviderResponse>>
