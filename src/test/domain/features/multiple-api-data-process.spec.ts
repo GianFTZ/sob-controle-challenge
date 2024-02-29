@@ -140,4 +140,15 @@ describe("MultipleApiDataProcessService", () => {
     const res = await sut(fakeData)
     expect(res).toBe("TimedOut")
   })
+
+  test("should returns Unknown if Api1Provider returns XXX", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+
+    providers.api1Provider.mockResolvedValueOnce({ id: "X?X", name: "valid-name" })
+    const res = await sut(fakeData)
+    expect(res).toBe("Unknown")
+  })
 })

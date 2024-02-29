@@ -38,7 +38,7 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
     } else if(e instanceof TimeoutError) {
       return "TimedOut"
     } else {
-      return "Unknown error"
+      return "Unknown"
     }
   }
 }
