@@ -38,9 +38,20 @@ describe("MultipleApiDataProcessService", () => {
       name: "valid-one"
     }
     const { sut, providers } = makeSut()
-    providers.api1Provider
     await sut(fakeData)
     expect(providers.api1Provider).toHaveBeenCalledTimes(1)
     expect(providers.api1Provider).toHaveBeenCalledWith({ name: fakeData.name })
   })
+
+  test("should calls Api2Provider with the right parameters", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+    providers.api1Provider.mockResolvedValueOnce({ id: "modified-id", name: "valid-name" })
+    await sut(fakeData)
+    expect(providers.api2Provider).toHaveBeenCalledTimes(1)
+    expect(providers.api2Provider).toHaveBeenCalledWith({ id: "modified-id" })
+  })
 })
+
