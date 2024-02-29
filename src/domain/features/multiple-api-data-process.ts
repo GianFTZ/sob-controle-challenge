@@ -1,8 +1,7 @@
-import { Effect } from "effect"
 import type { Api1Provider, Api2Provider, Api3Provider, LocalCalcProvider } from "../contracts"
-import { error } from "effect/Brand"
 import { CorruptedDataError, InternalError, NotFoundError, TimeoutError } from "../errors"
 import { errorHandler } from "../../utils"
+import { pino } from "../../.."
 
 type Input = {
   name: string
@@ -24,9 +23,17 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
     const { dataNascimento } = await api2Provider({ id })
     const success = await localCalc({ name, dataNascimento, id })
     await api3Provider({ id, isBirthDay: success })
-    return {}
   } catch (e) {
-    console.log(typeof e)
+    if(e instanceof NotFoundError) {
+      pino.error({ ...e })
+    } else if(e instanceof CorruptedDataError) {
+      pino.error({ ...e })
+    } else if(e instanceof TimeoutError) {
+      pino.error({ ...e })
+    } else if(e instanceof TimeoutError) {
+      pino.error({ ...e })
+    }
+  } finally {
     return {}
   }
 }

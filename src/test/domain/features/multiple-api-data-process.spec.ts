@@ -6,6 +6,7 @@ import { describe, test, expect, vi, type Mock } from 'vitest'
 import type { Api1ProviderResponse, Api2ProviderResponse, Api3ProviderProps, LocalCalcProviderProps } from '../../../domain/contracts'
 import { calculoLocal } from '../../mocks/fake-local-calc'
 import { apiFake3 } from '../../mocks/fake-api-3'
+import { pino } from '../../../..'
 
 type MakeSutResponse = {
   sut: MultipleApiDataProcess
@@ -54,10 +55,10 @@ describe("MultipleApiDataProcessService", () => {
       name: "valid-one"
     }
     const { sut, providers } = makeSut()
-    providers.api1Provider.mockResolvedValueOnce({ id: "modified-id", name: "valid-name" })
+    providers.api1Provider.mockResolvedValueOnce({ id: "123", name: "valid-name" })
     await sut(fakeData)
     expect(providers.api2Provider).toHaveBeenCalledTimes(1)
-    expect(providers.api2Provider).toHaveBeenCalledWith({ id: "modified-id" })
+    expect(providers.api2Provider).toHaveBeenCalledWith({ id: "123" })
   })
 
   test("should calls LocalCalcProvider with the right parameters", async () => {
@@ -65,11 +66,11 @@ describe("MultipleApiDataProcessService", () => {
       name: "valid-one"
     }
     const { sut, providers } = makeSut()
-    providers.api1Provider.mockResolvedValueOnce({ id: "modified-id", name: "valid-name" })
+    providers.api1Provider.mockResolvedValueOnce({ id: "123", name: "valid-name" })
     providers.api2Provider.mockResolvedValueOnce({ dataNascimento: "valid-birth-date" })
     await sut(fakeData)
     expect(providers.localCalcProvider).toHaveBeenCalledTimes(1)
-    expect(providers.localCalcProvider).toHaveBeenCalledWith({ id: "modified-id", name: "valid-name", dataNascimento: "valid-birth-date" })
+    expect(providers.localCalcProvider).toHaveBeenCalledWith({ id: "123", name: "valid-name", dataNascimento: "valid-birth-date" })
   })
 
   test("should calls Api3Provider with the right parameters", async () => {
@@ -77,11 +78,11 @@ describe("MultipleApiDataProcessService", () => {
       name: "valid-one"
     }
     const { sut, providers } = makeSut()
-    providers.api1Provider.mockResolvedValueOnce({ id: "modified-id", name: "valid-name" })
+    providers.api1Provider.mockResolvedValueOnce({ id: "123", name: "valid-name" })
     providers.api2Provider.mockResolvedValueOnce({ dataNascimento: "valid-birth-date" })
     providers.localCalcProvider.mockResolvedValueOnce(true)
     await sut(fakeData)
     expect(providers.api3Provider).toHaveBeenCalledTimes(1)
-    expect(providers.api3Provider).toHaveBeenCalledWith({ id: "modified-id", isBirthDay: true })
+    expect(providers.api3Provider).toHaveBeenCalledWith({ id: "123", isBirthDay: true })
   })
 })
