@@ -34,9 +34,11 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
       return "CorruptedData"
     } else if(e instanceof InternalError) {
       alertaObservabilidadeProvider({ id: Errors.Internal })
-      return e
+      return "InternalError"
     } else if(e instanceof TimeoutError) {
       return e
+    } else {
+      return "Unknown error"
     }
   }
 }

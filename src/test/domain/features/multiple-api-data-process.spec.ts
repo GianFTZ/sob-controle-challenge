@@ -119,4 +119,17 @@ describe("MultipleApiDataProcessService", () => {
     expect(res).toBe("CorruptedData")
     expect(providers.alertaObservabilidadeProvider).toHaveBeenCalled()
   })
+
+  test("should returns InternalError if Api1Provider returns 780", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+
+    providers.api1Provider.mockResolvedValueOnce({ id: "780", name: "valid-name" })
+    const res = await sut(fakeData)
+    console.log(res)
+    expect(res).toBe("InternalError")
+    expect(providers.alertaObservabilidadeProvider).toHaveBeenCalled()
+  })
 })
