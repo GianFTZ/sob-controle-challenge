@@ -31,7 +31,7 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
       return "NotFound"
     } else if(e instanceof CorruptedDataError) {
       alertaObservabilidadeProvider({ id: Errors.Corrupted })
-      return e
+      return "CorruptedData"
     } else if(e instanceof InternalError) {
       alertaObservabilidadeProvider({ id: Errors.Internal })
       return e

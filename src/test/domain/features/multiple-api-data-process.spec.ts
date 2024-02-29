@@ -106,4 +106,17 @@ describe("MultipleApiDataProcessService", () => {
     console.log(res)
     expect(res).toBe("NotFound")
   })
+
+  test("should returns CorruptedData if Api1Provider returns 999", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+
+    providers.api1Provider.mockResolvedValueOnce({ id: "999", name: "valid-name" })
+    const res = await sut(fakeData)
+    console.log(res)
+    expect(res).toBe("CorruptedData")
+    expect(providers.alertaObservabilidadeProvider).toHaveBeenCalled()
+  })
 })
