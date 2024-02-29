@@ -3,7 +3,6 @@ import type { Api1Provider, Api2Provider } from "../contracts"
 type Input = {
   id: string
   name: string
-  birthDate: string
 }
 type Output = {}
 type MultipleApiDataProcess = (input: Input) => Promise<Output>
