@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "test": "vitest test/"
+    "test": "vitest src/test/"
   },
   "devDependencies": {
     "@types/bun": "latest",

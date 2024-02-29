@@ -1,4 +1,4 @@
-import type { Api2Provider, Api2ProviderResponse } from "../../src/domain/contracts";
+import type { Api2Provider, Api2ProviderResponse } from "../../domain/contracts";
 
 export const apiFake2: Api2Provider = (props): Promise<Api2ProviderResponse> => {
   return new Promise((resolve) => {
