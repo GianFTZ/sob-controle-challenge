@@ -1,4 +1,3 @@
-// import { describe, expect, test, vi } from 'vitest'
 import { setupMultipleApiDataProcess, type MultipleApiDataProcess } from '../../../domain/features/multiple-api-data-process'
 import { apiFake1 } from '../../mocks/fake-api-1'
 import { apiFake2 } from '../../mocks/fake-api-2'
@@ -6,10 +5,8 @@ import { describe, test, expect, vi, type Mock } from 'vitest'
 import type { Api1ProviderResponse, Api2ProviderResponse, Api3ProviderProps, LocalCalcProviderProps } from '../../../domain/contracts'
 import { calculoLocal } from '../../mocks/fake-local-calc'
 import { apiFake3 } from '../../mocks/fake-api-3'
-import { pino } from '../../../..'
 import { alertaObservabilidade } from '../../mocks/fake-alerta-observabilidade'
 import { errorHandler, type ErrorHandlerProps } from '../../../utils'
-import { NotFoundError } from '../../../domain/errors'
 
 type MakeSutResponse = {
   sut: MultipleApiDataProcess
