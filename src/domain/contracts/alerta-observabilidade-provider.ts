@@ -1,0 +1,1 @@
+export type AlertaObservabilidadeProvider = (props: { id: string }) => Promise<boolean>

@@ -1,12 +1,12 @@
 import { CorruptedDataError, DefaultError, InternalError, NotFoundError, TimeoutError } from "../domain/errors"
 
-interface ErrorHandlerProps {
+export interface ErrorHandlerProps {
   code: string
   cause: string
   from: string
 }
 
-enum Errors {
+export enum Errors {
   'Success' = '123',
   'NotFound' = '555',
   'Internal' = '780',
@@ -14,8 +14,10 @@ enum Errors {
   'TimedOut' = '000'
 }
 
-export async function errorHandler({ code, cause, from }: ErrorHandlerProps) {
-  switch(code) {
+export type ErrorHandler = (props: ErrorHandlerProps) => void
+
+export const errorHandler: ErrorHandler = ({ cause, code, from }: ErrorHandlerProps) => {
+  switch (code) {
     case Errors.Success:
       break
     case Errors.NotFound:

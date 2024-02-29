@@ -7,6 +7,9 @@ import type { Api1ProviderResponse, Api2ProviderResponse, Api3ProviderProps, Loc
 import { calculoLocal } from '../../mocks/fake-local-calc'
 import { apiFake3 } from '../../mocks/fake-api-3'
 import { pino } from '../../../..'
+import { alertaObservabilidade } from '../../mocks/fake-alerta-observabilidade'
+import { errorHandler, type ErrorHandlerProps } from '../../../utils'
+import { NotFoundError } from '../../../domain/errors'
 
 type MakeSutResponse = {
   sut: MultipleApiDataProcess
@@ -19,6 +22,10 @@ type MakeSutResponse = {
     }], Promise<Api2ProviderResponse>>
     localCalcProvider: Mock<[props: LocalCalcProviderProps], boolean>
     api3Provider: Mock<[props: Api3ProviderProps], Promise<void>>
+    alertaObservabilidadeProvider: Mock<[props: {
+      id: string;
+    }], Promise<boolean>>,
+    errorHandler:  Mock<[ErrorHandlerProps], void>
   }
 }
 const makeSut = (): MakeSutResponse => {
@@ -26,7 +33,9 @@ const makeSut = (): MakeSutResponse => {
     api1Provider: vi.fn(apiFake1),
     api2Provider: vi.fn(apiFake2),
     localCalcProvider: vi.fn(calculoLocal),
-    api3Provider: vi.fn(apiFake3)
+    api3Provider: vi.fn(apiFake3),
+    alertaObservabilidadeProvider: vi.fn(alertaObservabilidade),
+    errorHandler: vi.fn(errorHandler)
   }
 
   const sut = setupMultipleApiDataProcess({
@@ -84,5 +93,17 @@ describe("MultipleApiDataProcessService", () => {
     await sut(fakeData)
     expect(providers.api3Provider).toHaveBeenCalledTimes(1)
     expect(providers.api3Provider).toHaveBeenCalledWith({ id: "123", isBirthDay: true })
+  })
+
+  test("should returns NotFound if Api1Provider returns 555", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+
+    providers.api1Provider.mockResolvedValueOnce({ id: "555", name: "valid-name" })
+    const res = await sut(fakeData)
+    console.log(res)
+    expect(res).toBe("NotFound")
   })
 })
