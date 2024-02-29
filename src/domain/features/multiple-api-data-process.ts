@@ -5,7 +5,7 @@ type Input = {
   name: string
 }
 type Output = {}
-type MultipleApiDataProcess = (input: Input) => Promise<Output>
+export type MultipleApiDataProcess = (input: Input) => Promise<Output>
 type SetupMultipleApiDataProcessProps = {
   api1Provider: Api1Provider,
   api2Provider: Api2Provider
