@@ -1,7 +1,6 @@
 import type { Api1Provider, Api2Provider } from "../contracts"
 
 type Input = {
-  id: string
   name: string
 }
 type Output = {}
@@ -12,7 +11,8 @@ type SetupMultipleApiDataProcessProps = {
 }
 type SetupMultipleApiDataProcess = (props: SetupMultipleApiDataProcessProps) => MultipleApiDataProcess
 
-export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({api1Provider}: SetupMultipleApiDataProcessProps) => async input => {
-  await api1Provider({ name: input.name })
+export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({api1Provider, api2Provider}: SetupMultipleApiDataProcessProps) => async input => {
+  const { id } = await api1Provider({ name: input.name })
+  await api2Provider({ id })
   return {}
 }
