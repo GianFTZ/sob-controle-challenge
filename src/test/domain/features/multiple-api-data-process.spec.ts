@@ -151,4 +151,15 @@ describe("MultipleApiDataProcessService", () => {
     const res = await sut(fakeData)
     expect(res).toBe("Unknown")
   })
+
+  test("should returns Success", async () => {
+    const fakeData = {
+      name: "valid-one"
+    }
+    const { sut, providers } = makeSut()
+
+    providers.api1Provider.mockResolvedValueOnce({ id: "123", name: "valid-name" })
+    const res = await sut(fakeData)
+    expect(res).toBe("Success")
+  })
 })

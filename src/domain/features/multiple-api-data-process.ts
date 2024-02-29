@@ -6,7 +6,7 @@ import { pino } from "../../.."
 type Input = {
   name: string
 }
-type Output = any
+type Output = "Success" | "NotFound" | "CorruptedData" | "InternalError" | "TimedOut" | "Unknown"
 export type MultipleApiDataProcess = (input: Input) => Promise<Output>
 type SetupMultipleApiDataProcessProps = {
   api1Provider: Api1Provider,
@@ -25,6 +25,7 @@ export const setupMultipleApiDataProcess: SetupMultipleApiDataProcess = ({ api1P
     const { dataNascimento } = await api2Provider({ id })
     const success = await localCalc({ name, dataNascimento, id })
     await api3Provider({ id, isBirthDay: success })
+    return "Success"
   } catch (e) {
     console.log(JSON.stringify(e))
     if(e instanceof NotFoundError) {
