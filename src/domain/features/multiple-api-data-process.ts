@@ -1,5 +1,4 @@
-import type { Api1Provider } from "../contracts/api-1-provider"
-import type { Api2Provider } from "../contracts/api-2-provider"
+import type { Api1Provider, Api2Provider } from "../contracts"
 
 type Input = {
   id: string
